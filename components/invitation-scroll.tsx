@@ -38,7 +38,7 @@ function InvitationContent({ progress }: { progress: number }) {
   return (
     <div className="invitation-content">
       {/* <motion.div className="ornament top-ornament" style={{ opacity: title, scale: 0.86 + title * 0.14 }} aria-hidden="true">❧</motion.div> */}
-      <motion.p className="eyebrow" style={{ opacity: title }}>With joyful hearts</motion.p>
+      <motion.p className="eyebrow" style={{ opacity: title }}>हर्षोल्लास के साथ</motion.p>
       <motion.h1 style={{ opacity: title, y: (1 - title) * 20 }}>{invitation.couple}</motion.h1>
       <motion.div className="gold-rule" style={{ opacity: title }}><span /><b>✦</b><span /></motion.div>
       <motion.p className="message" style={{ opacity: message }}>{invitation.message}</motion.p>
@@ -102,12 +102,12 @@ export function InvitationScroll() {
   const contentOpacity = reveal(progress, 0.1, 0.27)
 
   return (
-    <section ref={sectionRef} className="scroll-stage" aria-label="Interactive engagement invitation">
+    <section ref={sectionRef} className="scroll-stage" aria-label="इंटरैक्टिव सगाई का निमंत्रण">
       <audio ref={audioRef} src="/assets/invitation-music.mp3" preload="auto" aria-hidden="true" />
       <div className="scroll-sticky">
         {!hasOpened && (
-          <button className="opening-prompt" type="button" onClick={openInvitation} aria-label="Open the invitation">
-            <span>Tap here</span>
+          <button className="opening-prompt" type="button" onClick={openInvitation} aria-label="निमंत्रण खोलें">
+            <span>यहाँ स्पर्श करें</span>
           </button>
         )}
         <div className={`pre-open-veil${hasOpened ? ' pre-open-veil-open' : ''}`} aria-hidden="true" />
@@ -125,7 +125,7 @@ export function InvitationScroll() {
           {/* <WoodenRod side="top" position={-spread / 2} /> */}
           {/* <WoodenRod side="bottom" position={spread/2} /> */}
         </div>
-        <motion.p className="scroll-hint" style={{ opacity: hasOpened ? 1 - reveal(progress, 0.02, 0.13) : 0 }}>Scroll to unfold the invitation <span>↓</span></motion.p>
+        <motion.p className="scroll-hint" style={{ opacity: hasOpened ? 1 - reveal(progress, 0.02, 0.13) : 0 }}>निमंत्रण खोलने के लिए स्क्रॉल करें <span>↓</span></motion.p>
       </div>
     </section>
   )
