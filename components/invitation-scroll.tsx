@@ -39,7 +39,11 @@ function InvitationContent({ progress }: { progress: number }) {
     <div className="invitation-content">
       {/* <motion.div className="ornament top-ornament" style={{ opacity: title, scale: 0.86 + title * 0.14 }} aria-hidden="true">❧</motion.div> */}
       <motion.p className="eyebrow" style={{ opacity: title }}>हर्षोल्लास के साथ</motion.p>
-      <motion.h1 style={{ opacity: title, y: (1 - title) * 20 }}>{invitation.couple}</motion.h1>
+      <motion.h1 className="couple-name" style={{ opacity: title, y: (1 - title) * 20 }} aria-label={`${invitation.couple.bride} और ${invitation.couple.groom}`}>
+        <span>{invitation.couple.bride}</span>
+        <span className="couple-ampersand" aria-hidden="true">&amp;</span>
+        <span>{invitation.couple.groom}</span>
+      </motion.h1>
       <motion.div className="gold-rule" style={{ opacity: title }}><span /><b>✦</b><span /></motion.div>
       <motion.p className="message" style={{ opacity: message }}>{invitation.message}</motion.p>
       <motion.div className="event-details" style={{ opacity: details }}>
