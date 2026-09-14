@@ -110,7 +110,7 @@ export function InvitationScroll() {
             <span>Tap here</span>
           </button>
         )}
-        {!hasOpened && <div className="pre-open-veil" aria-hidden="true" />}
+        <div className={`pre-open-veil${hasOpened ? ' pre-open-veil-open' : ''}`} aria-hidden="true" />
         <div className={`celebration${hasOpened ? ' celebration-active' : ''}`} aria-hidden="true" />
         <CoupleHero hidden={reveal(progress, 0.02, 0.25)} />
         
