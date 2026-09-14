@@ -76,6 +76,15 @@ export function InvitationScroll() {
   }
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    if (!hasOpened) document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [hasOpened])
+
+  useEffect(() => {
     const update = () => {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
