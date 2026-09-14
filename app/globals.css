@@ -68,10 +68,11 @@ h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style:
 .celebration { position: absolute; inset: 0; z-index: 8; pointer-events: none; overflow: hidden; }
 .celebration::before, .celebration::after { content: '✦  ·  ✧  ·  ✦'; position: absolute; left: 50%; top: 38%; color: var(--gold); font-size: 18px; letter-spacing: 1.2em; opacity: 0; transform: translate(-50%, -50%) scale(.4); }
 .celebration::after { color: #c68470; top: 48%; font-size: 13px; letter-spacing: .9em; }
-.celebration.is-active::before { animation: celebration-burst 1.2s ease-out both; }
-.celebration.is-active::after { animation: celebration-burst 1.35s .08s ease-out both; }
+.celebration.is-active::before { animation: celebration-burst 1.2s ease-out both, celebration-glow 3s 1.2s ease-in-out infinite; }
+.celebration.is-active::after { animation: celebration-burst 1.35s .08s ease-out both, celebration-glow 3s 1.43s ease-in-out infinite; }
 @keyframes prompt-pulse { 50% { box-shadow: 0 8px 30px rgba(181,138,58,.25); transform: translateY(-2px); } }
 @keyframes celebration-burst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); } 25% { opacity: .95; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.8); } }
+@keyframes celebration-glow { 0%, 100% { opacity: .18; transform: translate(-50%, -50%) scale(1.8); } 50% { opacity: .42; transform: translate(-50%, -50%) scale(2.05); } }
 .page-footer { padding: 25px 20px 38px; text-align: center; color: #a17e65; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
 
 @media (min-width: 769px) { .scroll-stage { max-width: 520px; margin: 0 auto; } .scroll-sticky { border-left: 1px solid #d9c4a7; border-right: 1px solid #d9c4a7; } }

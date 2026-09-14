@@ -67,7 +67,7 @@ export function InvitationScroll() {
     setHasOpened(true)
     const audio = audioRef.current
     if (!audio) return
-    audio.loop = true
+    audio.loop = false
     try {
       await audio.play()
     } catch {
