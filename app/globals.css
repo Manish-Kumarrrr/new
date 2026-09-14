@@ -78,7 +78,7 @@ h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style:
 .celebration::after { color: #c68470; top: 48%; font-size: 13px; letter-spacing: .9em; }
 .celebration-active::before { animation: celebration-burst 1.6s ease-out .08s both; }
 .celebration-active::after { animation: celebration-burst 1.9s ease-out .2s both; }
-@keyframes prompt-pulse { 50% { box-shadow: 0 8px 30px rgba(181,138,58,.25); transform: translateY(-2px); } }
+@keyframes prompt-pulse { 0%, 100% { opacity: .78; box-shadow: 0 8px 24px rgba(79,45,28,.12); transform: translateY(0) scale(1); } 50% { opacity: 1; box-shadow: 0 8px 30px rgba(181,138,58,.3); transform: translateY(-3px) scale(1.04); } }
 @keyframes fog-drift { from { transform: translateX(-5%) scale(1); } to { transform: translateX(5%) scale(1.08); } }
 @keyframes cloud-reveal { 0% { opacity: .9; transform: translateX(0) scale(1); } 55% { opacity: .82; } 100% { opacity: 0; transform: translateX(26%) scale(1.16); } }
 @keyframes celebration-burst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); } 25% { opacity: .95; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.8); } }
