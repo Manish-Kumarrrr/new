@@ -98,7 +98,7 @@ export function InvitationScroll() {
   }, [prefersReducedMotion])
 
   const spread = progress * 180
-  const clothHeight = 48 + progress * 1200
+  const clothHeight = 48 + progress * 950
   const contentOpacity = reveal(progress, 0.1, 0.27)
 
   return (
