@@ -67,7 +67,7 @@ export function InvitationScroll() {
     setHasOpened(true)
     const audio = audioRef.current
     if (!audio) return
-    audio.loop = true
+    audio.loop = false
     try {
       await audio.play()
     } catch {
@@ -110,7 +110,8 @@ export function InvitationScroll() {
             <span>Tap here</span>
           </button>
         )}
-        <div className={`celebration${hasOpened ? ' is-active' : ''}`} aria-hidden="true" />
+        <div className={`pre-open-veil${hasOpened ? ' pre-open-veil-open' : ''}`} aria-hidden="true" />
+        <div className={`celebration${hasOpened ? ' celebration-active' : ''}`} aria-hidden="true" />
         <CoupleHero hidden={reveal(progress, 0.02, 0.25)} />
         
         <div className="scroll-object" style={{ '--cloth-height': `${clothHeight}px`, '--content-opacity': contentOpacity } as React.CSSProperties}>
