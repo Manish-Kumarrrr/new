@@ -97,6 +97,28 @@ export function InvitationScroll() {
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
   }, [prefersReducedMotion])
 
+  useEffect(() => {
+    if (!hasOpened || prefersReducedMotion) return
+
+    let animationFrame = 0
+    let stopped = false
+    const stopAutoScroll = () => { stopped = true }
+    const scrollSlowly = () => {
+      if (stopped || window.scrollY >= document.documentElement.scrollHeight - window.innerHeight) return
+      window.scrollBy(0, 0.35)
+      animationFrame = window.requestAnimationFrame(scrollSlowly)
+    }
+    const interactionEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const
+    interactionEvents.forEach((event) => window.addEventListener(event, stopAutoScroll, { passive: true }))
+    const startDelay = window.setTimeout(() => { animationFrame = window.requestAnimationFrame(scrollSlowly) }, 1200)
+
+    return () => {
+      window.clearTimeout(startDelay)
+      window.cancelAnimationFrame(animationFrame)
+      interactionEvents.forEach((event) => window.removeEventListener(event, stopAutoScroll))
+    }
+  }, [hasOpened, prefersReducedMotion])
+
   const spread = progress * 180
   const clothHeight = 48 + progress * 1200
   const contentOpacity = reveal(progress, 0.1, 0.27)
