@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: light;
+  --ink: #51372c;
+  --muted-ink: #8c6a58;
+  --cream: #f7eedf;
+  --parchment: #efe0c4;
+  --gold: #b58a3a;
+  --wood: #6b3d24;
+  --wood-light: #a66e3e;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: Georgia, 'Times New Roman', serif; }
+button, a { font: inherit; }
+
+.invitation-page { min-height: 100vh; background: radial-gradient(circle at 50% 20%, #fffaf1 0, var(--cream) 44%, #e9d8bd 100%); }
+.scroll-stage { height: 250vh; position: relative; }
+.scroll-sticky { height: 100vh; min-height: 620px; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 28px 20px 28px; }
+.scroll-sticky::before, .scroll-sticky::after { content: ''; position: absolute; inset: 10% auto 10%; width: 1px; background: linear-gradient(transparent, rgba(181,138,58,.22), transparent); }
+.scroll-sticky::before { left: 14px; } .scroll-sticky::after { right: 14px; }
+
+.couple-hero { position: absolute; top: 10vh; z-index: 1; text-align: center; width: min(100vw, 450px); pointer-events: none; }
+.couple-halo { position: absolute; width: 170px; height: 170px; left: 50%; top: 0; transform: translateX(-50%); border-radius: 50%; background: rgba(210,160,74,.13); filter: blur(2px); }
+.couple-art { height: auto; position: relative; width: 95%; margin:  auto; }
+/* .couple-art {
+  display: block;
+  width: 90%;
+  max-width: 380px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+} */
+.person { position: absolute; bottom: 0; width: 70px; height: 130px; } .person-left { left: 33px; } .person-right { right: 33px; }
+.face { position: absolute; top: 25px; left: 17px; width: 38px; height: 43px; border-radius: 45% 45% 48% 48%; background: #c8845a; border: 2px solid #754c39; z-index: 2; }
+.hair { position: absolute; top: 14px; left: 11px; width: 49px; height: 42px; border-radius: 50% 50% 35% 40%; background: #3d2927; z-index: 3; } .hair.long { height: 71px; border-radius: 50% 50% 28% 28%; }
+.body { position: absolute; top: 67px; left: 5px; width: 60px; height: 66px; border-radius: 28px 28px 10px 10px; border: 2px solid #754c39; } .sherwani { background: #557066; } .sari { background: #b15f5b; }
+.arm { position: absolute; z-index: 4; top: 82px; width: 49px; height: 12px; border-radius: 10px; background: #c8845a; border: 2px solid #754c39; } .arm-left { left: -13px; transform: rotate(24deg); } .arm-right { right: -13px; transform: rotate(-24deg); }
+.mini-scroll { position: absolute; z-index: 5; left: 50%; top: 80px; width: 48px; height: 38px; transform: translateX(-50%); background: #d9b976; border: 2px solid #8d622b; box-shadow: 0 4px 7px #63402b55; } .mini-scroll i, .mini-scroll b { position: absolute; width: 56px; height: 7px; background: #714326; left: -6px; border-radius: 5px; } .mini-scroll i { top: -5px; } .mini-scroll b { bottom: -5px; }
+.hero-kicker { position: relative; margin: 2px 0 0; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted-ink); }
+
+.scroll-object { width: min(88vw, 360px); position: relative; margin-top: 132px; z-index: 3; filter: drop-shadow(0 18px 17px rgba(79,45,28,.18)); }
+.fabric { position: relative; width: calc(100% - 5px); margin: 0 auto; overflow: hidden; background: url('/assets/scroll-source.png') 100% 0 / 204% auto no-repeat;   transition: height .08s linear; }
+.fabric::after { content: ''; position: absolute; inset: 0; opacity: .16; pointer-events: none; background: radial-gradient(#9c7545 .5px, transparent .7px); background-size: 9px 9px; mix-blend-mode: multiply; }
+.fabric-border { display: none; }
+.rod { position: absolute; left: -13px; right: -13px; height: 39px; z-index: 5; display: block; transition: transform .08s linear; overflow: hidden; }
+.rod-top { top: -19px; } .rod-bottom { bottom: -19px; }
+.rod-art { display: block; width: 100%; height: 100%; background: url('/assets/scroll-source.png') 0 4% / 207% 457% no-repeat; }
+.rod-bottom .rod-art { background-position: 0 32%; }
+
+.invitation-content { position: absolute; inset: 0 0 auto; z-index: 2; height: 500px; padding: 150px 25px; text-align: center; display: flex; align-items: center; flex-direction: column; color: #5a392a; }
+.ornament { color: var(--gold); font-size: 24px; height: 25px; } .eyebrow { margin: 1px 0 7px; font-size: 10px; letter-spacing: .19em; text-transform: uppercase; color: #9a6e37; }
+h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style: italic; line-height: 1.12; color: #74452d; white-space: nowrap; }
+.gold-rule { display: flex; align-items: center; gap: 8px; width: 82%; margin: 14px 0 13px; color: var(--gold); } .gold-rule span { flex: 1; height: 1px; background: var(--gold); opacity: .7; } .gold-rule b { font-size: 12px; font-weight: 400; }
+.message { max-width: 245px; margin: 0 0 17px; font-size: 14px; line-height: 1.6; font-style: italic; }
+.event-details { display: grid; gap: 8px; width: 100%; max-width: 250px; border-top: 1px solid #a7783e88; border-bottom: 1px solid #a7783e88; padding: 13px 0; } .detail { display: grid; gap: 2px; } .detail span { color: #9a6e37; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; } .detail strong { font-size: 14px; font-weight: 400; }
+.closing { margin-top: 16px; font-size: 12px; line-height: 1.45; max-width: 220px; font-style: italic; color: #77533d; } .closing p { margin: 5px 0; } .closing-mark { color: var(--gold); font-size: 10px; }
+.scroll-hint { position: absolute; bottom: 23px; margin: 0; font-size: 11px; letter-spacing: .08em; color: var(--muted-ink); } .scroll-hint span { font-size: 16px; margin-left: 5px; }
+.page-footer { padding: 25px 20px 38px; text-align: center; color: #a17e65; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+
+@media (min-width: 769px) { .scroll-stage { max-width: 520px; margin: 0 auto; } .scroll-sticky { border-left: 1px solid #d9c4a7; border-right: 1px solid #d9c4a7; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
