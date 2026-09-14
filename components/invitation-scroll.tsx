@@ -110,7 +110,8 @@ export function InvitationScroll() {
             <span>Tap here</span>
           </button>
         )}
-        <div className={`celebration${hasOpened ? ' is-active' : ''}`} aria-hidden="true" />
+        {!hasOpened && <div className="pre-open-veil" aria-hidden="true" />}
+        <div className="celebration" aria-hidden="true" />
         <CoupleHero hidden={reveal(progress, 0.02, 0.25)} />
         
         <div className="scroll-object" style={{ '--cloth-height': `${clothHeight}px`, '--content-opacity': contentOpacity } as React.CSSProperties}>
