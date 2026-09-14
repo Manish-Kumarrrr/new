@@ -15,39 +15,9 @@ function WoodenRod({ position, side }: { position: number; side: 'top' | 'bottom
     </motion.div>
   )
 }
-function InvitationMusic() {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.loop = true;
-
-    const tryPlay = async () => {
-      try {
-        await audio.play();
-      } catch {
-        // Autoplay was blocked by the browser.
-      }
-    };
-
-    tryPlay();
-  }, []);
-
-  return (
-    <audio
-      ref={audioRef}
-      src="/assets/invitation-music.mp3"
-      preload="auto"
-    />
-  );
-}
-
 function CoupleHero({ hidden }: { hidden: number }) {
   return (
     <motion.div className="couple-hero" style={{ opacity: 1 - hidden, y: -hidden * 18 }} aria-label="Illustration of a couple holding a scroll">
-<InvitationMusic />
       {/* <div className="couple-halo" />
       <div className="couple-art" aria-hidden="true">
         <div className="person person-left"><span className="hair" /><span className="face" /><span className="body sherwani" /><span className="arm arm-left" /><span className="arm arm-right" /></div>
@@ -87,8 +57,32 @@ function InvitationContent({ progress }: { progress: number }) {
 
 export function InvitationScroll() {
   const sectionRef = useRef<HTMLElement>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const [progress, setProgress] = useState(0)
+  const [hasOpened, setHasOpened] = useState(false)
   const prefersReducedMotion = useReducedMotion()
+
+  const openInvitation = async () => {
+    if (hasOpened) return
+    setHasOpened(true)
+    const audio = audioRef.current
+    if (!audio) return
+    audio.loop = true
+    try {
+      await audio.play()
+    } catch {
+      setHasOpened(false)
+    }
+  }
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    if (!hasOpened) document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [hasOpened])
 
   useEffect(() => {
     const update = () => {
@@ -109,7 +103,14 @@ export function InvitationScroll() {
 
   return (
     <section ref={sectionRef} className="scroll-stage" aria-label="Interactive engagement invitation">
+      <audio ref={audioRef} src="/assets/invitation-music.mp3" preload="auto" aria-hidden="true" />
       <div className="scroll-sticky">
+        {!hasOpened && (
+          <button className="opening-prompt" type="button" onClick={openInvitation} aria-label="Open the invitation">
+            <span>Tap here</span>
+          </button>
+        )}
+        <div className={`celebration${hasOpened ? ' is-active' : ''}`} aria-hidden="true" />
         <CoupleHero hidden={reveal(progress, 0.02, 0.25)} />
         
         <div className="scroll-object" style={{ '--cloth-height': `${clothHeight}px`, '--content-opacity': contentOpacity } as React.CSSProperties}>
@@ -123,7 +124,7 @@ export function InvitationScroll() {
           {/* <WoodenRod side="top" position={-spread / 2} /> */}
           {/* <WoodenRod side="bottom" position={spread/2} /> */}
         </div>
-        <motion.p className="scroll-hint" style={{ opacity: 1 - reveal(progress, 0.02, 0.13) }}>Scroll to unfold the invitation <span>↓</span></motion.p>
+        <motion.p className="scroll-hint" style={{ opacity: hasOpened ? 1 - reveal(progress, 0.02, 0.13) : 0 }}>Scroll to unfold the invitation <span>↓</span></motion.p>
       </div>
     </section>
   )
