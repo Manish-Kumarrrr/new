@@ -1,11 +1,15 @@
 export const invitation = {
-  couple: 'Sweta & Prem',
-  message: 'Together with our families, we invite you to celebrate our engagement.',
-  date: 'Sunday, 18 November 2026',
-  time: '1:00 PM onwards',
-  venue: 'Janakpuri Resort',
-  address: 'Aurangabad, Bihar',
-  closing: 'Your presence will make our celebration even more special.',
+  couple: 'स्वेता & प्रेम',
+  message: 'अपने परिवार के साथ, हम आपको अपनी सगाई के शुभ अवसर पर आमंत्रित करते हैं।',
+ date: 'रविवार, 18 नवंबर 2026',
+
+time: 'दोपहर 1:00 बजे से',
+
+venue: 'जनकपुरी रिज़ॉर्ट',
+
+address: 'औरंगाबाद, बिहार',
+
+closing: 'आपकी उपस्थिति हमारे इस उत्सव को और भी विशेष बनाएगी।'
 } as const
 
 export type Invitation = typeof invitation

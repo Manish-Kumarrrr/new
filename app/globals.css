@@ -54,13 +54,13 @@ button, a { font: inherit; }
 .rod-art { display: block; width: 100%; height: 100%; background: url('/assets/scroll-source.png') 0 4% / 207% 457% no-repeat; }
 .rod-bottom .rod-art { background-position: 0 32%; }
 
-.invitation-content { position: absolute; inset: 0 0 auto; z-index: 2; height: 500px; padding: 150px 25px; text-align: center; display: flex; align-items: center; flex-direction: column; color: #5a392a; }
+.invitation-content { position: absolute; inset: 0 0 auto; z-index: 2; height: 500px; padding: 160px 25px; text-align: center; display: flex; align-items: center; flex-direction: column; color: #5a392a; }
 .ornament { color: var(--gold); font-size: 24px; height: 25px; } .eyebrow { margin: 1px 0 7px; font-size: 10px; letter-spacing: .19em; text-transform: uppercase; color: #9a6e37; }
 h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style: italic; line-height: 1.12; color: #74452d; white-space: nowrap; }
-.gold-rule { display: flex; align-items: center; gap: 8px; width: 82%; margin: 14px 0 13px; color: var(--gold); } .gold-rule span { flex: 1; height: 1px; background: var(--gold); opacity: .7; } .gold-rule b { font-size: 12px; font-weight: 400; }
-.message { max-width: 245px; margin: 0 0 17px; font-size: 14px; line-height: 1.6; font-style: italic; }
+.gold-rule { display: flex; align-items: center; gap: 8px; width: 82%; color: var(--gold); } .gold-rule span { flex: 1; height: 1px; background: var(--gold); opacity: .7; } .gold-rule b { font-size: 12px; font-weight: 400; }
+.message { max-width: 200px; margin: 0 0 17px; font-size: 14px; line-height: 1.6; font-style: italic; }
 .event-details { display: grid; gap: 8px; width: 100%; max-width: 250px; border-top: 1px solid #a7783e88; border-bottom: 1px solid #a7783e88; padding: 13px 0; } .detail { display: grid; gap: 2px; } .detail span { color: #9a6e37; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; } .detail strong { font-size: 14px; font-weight: 400; }
-.closing { margin-top: 16px; font-size: 12px; line-height: 1.45; max-width: 220px; font-style: italic; color: #77533d; } .closing p { margin: 5px 0; } .closing-mark { color: var(--gold); font-size: 10px; }
+.closing { margin-top: 16px; font-size: 12px; line-height: 1.45; max-width: 200px; font-style: italic; color: #77533d; } .closing p { margin: 5px 0; } .closing-mark { color: var(--gold); font-size: 10px; }
 .scroll-hint { position: absolute; bottom: 23px; margin: 0; font-size: 11px; letter-spacing: .08em; color: var(--muted-ink); } .scroll-hint span { font-size: 16px; margin-left: 5px; }
 .opening-prompt { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; border: 0; background: transparent; color: #74452d; cursor: pointer; pointer-events: none; }
 .opening-prompt span { padding: 14px 24px; pointer-events: auto; border: 1px solid rgba(181,138,58,.58); border-radius: 999px; background: rgba(255,250,241,.72); box-shadow: 0 8px 24px rgba(79,45,28,.12); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; animation: prompt-pulse 2.2s ease-in-out infinite; }
