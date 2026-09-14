@@ -57,7 +57,7 @@ button, a { font: inherit; }
 .invitation-content { position: absolute; inset: 0 0 auto; z-index: 2; height: 500px; padding: 150px 25px; text-align: center; display: flex; align-items: center; flex-direction: column; color: #5a392a; }
 .ornament { color: var(--gold); font-size: 24px; height: 25px; } .eyebrow { margin: 1px 0 7px; font-size: 10px; letter-spacing: .19em; text-transform: uppercase; color: #9a6e37; }
 h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style: italic; line-height: 1.12; color: #74452d; white-space: nowrap; }
-.couple-name { display: flex; align-items: center; justify-content: center; gap: 10px; font-family: Georgia, 'Times New Roman', serif; text-shadow: 0 2px 0 rgba(255,250,241,.55), 0 5px 14px rgba(116,69,45,.14); }
+.couple-name { display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 2px 0 rgba(255,250,241,.55), 0 5px 14px rgba(116,69,45,.14); }
 .couple-name span:not(.couple-ampersand) { background: linear-gradient(135deg, #8a5132, #c18a3c 52%, #74452d); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .couple-ampersand { color: var(--gold); font-family: Georgia, serif; font-size: .72em; font-style: normal; text-shadow: 0 1px 0 #fff6df, 0 3px 8px rgba(181,138,58,.35); }
 .gold-rule { display: flex; align-items: center; gap: 8px; width: 82%; margin: 14px 0 13px; color: var(--gold); } .gold-rule span { flex: 1; height: 1px; background: var(--gold); opacity: .7; } .gold-rule b { font-size: 12px; font-weight: 400; }
