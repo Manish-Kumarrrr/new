@@ -76,19 +76,25 @@ export function InvitationScroll() {
     stopAutoScroll()
     autoScrollActiveRef.current = true
 
-    const scroll = () => {
+    const startedAt = performance.now()
+    const startPosition = Math.max(0, window.scrollY)
+    const duration = 1800
+
+    const scroll = (now: number) => {
       if (!autoScrollActiveRef.current) return
 
       // Read the scrolling element each frame so this stays correct when the
       // viewport changes size or the page finishes loading media.
       const scrollingElement = document.scrollingElement ?? document.documentElement
       const target = Math.max(0, scrollingElement.scrollHeight - window.innerHeight)
-      const currentPosition = Math.max(0, window.scrollY)
-      const nextPosition = Math.min(target, currentPosition + 8)
+      const elapsed = Math.min(1, (now - startedAt) / duration)
+      const easedProgress = 1 - Math.pow(1 - elapsed, 3)
+      const nextPosition = startPosition + (target - startPosition) * easedProgress
 
       window.scrollTo({ top: nextPosition, left: 0, behavior: 'auto' })
 
-      if (nextPosition >= target) {
+      if (elapsed >= 1 || Math.abs(target - nextPosition) < 1) {
+        window.scrollTo({ top: target, left: 0, behavior: 'auto' })
         stopAutoScroll()
         return
       }
