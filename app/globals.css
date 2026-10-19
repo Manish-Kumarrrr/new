@@ -63,8 +63,11 @@ h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style:
 .closing { margin-top: 0px; font-size: 12px; line-height: 1.45; max-width: 170px; font-style: italic; color: #77533d; } .closing p { margin: 0px 0; } .closing-mark { color: var(--gold); font-size: 10px; }
 .scroll-hint { position: absolute; bottom: 23px; margin: 0; font-size: 11px; letter-spacing: .08em; color: var(--muted-ink); } .scroll-hint span { font-size: 16px; margin-left: 5px; }
 .opening-prompt { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; border: 0; background: transparent; color: #74452d; cursor: pointer; pointer-events: none; }
-.opening-prompt span { padding: 14px 24px; pointer-events: auto; border: 1px solid rgba(181,138,58,.58); border-radius: 999px; background: rgba(255,250,241,.72); box-shadow: 0 8px 24px rgba(79,45,28,.12); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; animation: prompt-pulse 2.2s ease-in-out infinite; }
-.opening-prompt:focus-visible { outline: 2px solid var(--gold); outline-offset: -8px; }
+  .opening-prompt span { position: relative; padding: 14px 34px; pointer-events: auto; border: 1px solid rgba(181,138,58,.58); border-radius: 999px; background: rgba(255,250,241,.78); box-shadow: 0 8px 24px rgba(79,45,28,.12), 0 0 0 6px rgba(181,138,58,.06); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; animation: prompt-pulse 2.2s ease-in-out infinite; }
+  .opening-prompt span::before, .opening-prompt span::after { content: '✦'; position: absolute; color: var(--gold); font-size: 13px; letter-spacing: 0; animation: sparkle-twinkle 1.8s ease-in-out infinite; }
+  .opening-prompt span::before { left: 10px; top: 7px; }
+  .opening-prompt span::after { right: 10px; bottom: 6px; font-size: 9px; animation-delay: .65s; }
+  .opening-prompt:focus-visible { outline: 2px solid var(--gold); outline-offset: -8px; }
 .pre-open-veil { position: absolute; inset: 0; z-index: 7; pointer-events: none; overflow: hidden; opacity: 1; background: radial-gradient(ellipse at 18% 72%, rgba(255,255,250,.32), transparent 34%), radial-gradient(ellipse at 84% 24%, rgba(255,250,239,.36), transparent 32%), linear-gradient(180deg, rgba(248, 241, 226, .4), rgba(225, 211, 190, .3)); box-shadow: inset 0 0 70px rgba(177, 151, 119, .18); transition: opacity 1.2s ease, visibility 1.2s ease; }
 .pre-open-veil::before, .pre-open-veil::after { content: ''; position: absolute; width: 155%; height: 46%; left: -28%; border-radius: 50%; background: radial-gradient(ellipse at 8% 58%, rgba(255, 254, 249, .92) 0 10%, transparent 27%), radial-gradient(ellipse at 22% 38%, rgba(255, 253, 247, .98) 0 14%, transparent 32%), radial-gradient(ellipse at 40% 55%, rgba(250, 247, 239, .94) 0 13%, transparent 31%), radial-gradient(ellipse at 57% 35%, rgba(255, 253, 247, .92) 0 17%, transparent 36%), radial-gradient(ellipse at 77% 58%, rgba(249, 243, 232, .94) 0 15%, transparent 34%), radial-gradient(ellipse at 96% 40%, rgba(255, 251, 241, .86) 0 12%, transparent 29%), linear-gradient(180deg, rgba(244, 235, 220, .72), rgba(232, 220, 202, .42)); filter: blur(16px); opacity: .92; animation: fog-drift 9s ease-in-out infinite alternate; }
 .pre-open-veil::before { top: 5%; height: 42%; }
@@ -78,7 +81,8 @@ h1 { margin: 0; font-size: clamp(25px, 8vw, 34px); font-weight: 400; font-style:
 .celebration::after { color: #c68470; top: 48%; font-size: 13px; letter-spacing: .9em; }
 .celebration-active::before { animation: celebration-burst 1.6s ease-out .08s both; }
 .celebration-active::after { animation: celebration-burst 1.9s ease-out .2s both; }
-@keyframes prompt-pulse { 50% { box-shadow: 0 8px 30px rgba(181,138,58,.25); transform: translateY(-2px); } }
+@keyframes prompt-pulse { 50% { box-shadow: 0 8px 30px rgba(181,138,58,.25), 0 0 0 8px rgba(181,138,58,.08); transform: translateY(-2px); } }
+@keyframes sparkle-twinkle { 0%, 100% { opacity: .35; transform: scale(.72) rotate(0deg); } 50% { opacity: 1; transform: scale(1.18) rotate(18deg); } }
 @keyframes fog-drift { from { transform: translateX(-5%) scale(1); } to { transform: translateX(5%) scale(1.08); } }
 @keyframes cloud-reveal { 0% { opacity: .9; transform: translateX(0) scale(1); } 55% { opacity: .82; } 100% { opacity: 0; transform: translateX(26%) scale(1.16); } }
 @keyframes celebration-burst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); } 25% { opacity: .95; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.8); } }
