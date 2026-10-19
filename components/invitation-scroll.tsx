@@ -78,7 +78,7 @@ export function InvitationScroll() {
 
     const startedAt = performance.now()
     const startPosition = Math.max(0, window.scrollY)
-    const duration = 1800
+    const duration = 6000
 
     const scroll = (now: number) => {
       if (!autoScrollActiveRef.current) return
