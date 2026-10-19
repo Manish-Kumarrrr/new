@@ -61,10 +61,41 @@ export function InvitationScroll() {
   const [progress, setProgress] = useState(0)
   const [hasOpened, setHasOpened] = useState(false)
   const prefersReducedMotion = useReducedMotion()
+  const autoScrollFrameRef = useRef<number | null>(null)
+  const autoScrollActiveRef = useRef(false)
+
+  const stopAutoScroll = () => {
+    autoScrollActiveRef.current = false
+    if (autoScrollFrameRef.current !== null) {
+      cancelAnimationFrame(autoScrollFrameRef.current)
+      autoScrollFrameRef.current = null
+    }
+  }
+
+  const startAutoScroll = () => {
+    stopAutoScroll()
+    autoScrollActiveRef.current = true
+
+    const scroll = () => {
+      if (!autoScrollActiveRef.current) return
+      const target = document.documentElement.scrollHeight - window.innerHeight
+      const nextPosition = Math.min(target, window.scrollY + 8)
+      window.scrollTo(0, nextPosition)
+
+      if (nextPosition >= target) {
+        stopAutoScroll()
+        return
+      }
+      autoScrollFrameRef.current = requestAnimationFrame(scroll)
+    }
+
+    autoScrollFrameRef.current = requestAnimationFrame(scroll)
+  }
 
   const openInvitation = async () => {
     if (hasOpened) return
     setHasOpened(true)
+    startAutoScroll()
     const audio = audioRef.current
     if (!audio) return
     audio.loop = false
@@ -72,6 +103,7 @@ export function InvitationScroll() {
       await audio.play()
     } catch {
       setHasOpened(false)
+      stopAutoScroll()
     }
   }
 
@@ -83,6 +115,18 @@ export function InvitationScroll() {
       document.body.style.overflow = previousOverflow
     }
   }, [hasOpened])
+
+  useEffect(() => {
+    const handleTouch = () => stopAutoScroll()
+    window.addEventListener('pointerdown', handleTouch, { passive: true })
+    window.addEventListener('touchstart', handleTouch, { passive: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', handleTouch)
+      window.removeEventListener('touchstart', handleTouch)
+      stopAutoScroll()
+    }
+  }, [])
 
   useEffect(() => {
     const update = () => {
