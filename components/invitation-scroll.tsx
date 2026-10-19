@@ -61,10 +61,53 @@ export function InvitationScroll() {
   const [progress, setProgress] = useState(0)
   const [hasOpened, setHasOpened] = useState(false)
   const prefersReducedMotion = useReducedMotion()
+  const autoScrollFrameRef = useRef<number | null>(null)
+  const autoScrollActiveRef = useRef(false)
+
+  const stopAutoScroll = () => {
+    autoScrollActiveRef.current = false
+    if (autoScrollFrameRef.current !== null) {
+      cancelAnimationFrame(autoScrollFrameRef.current)
+      autoScrollFrameRef.current = null
+    }
+  }
+
+  const startAutoScroll = () => {
+    stopAutoScroll()
+    autoScrollActiveRef.current = true
+
+    const startedAt = performance.now()
+    const startPosition = Math.max(0, window.scrollY)
+    const duration = 6000
+
+    const scroll = (now: number) => {
+      if (!autoScrollActiveRef.current) return
+
+      // Read the scrolling element each frame so this stays correct when the
+      // viewport changes size or the page finishes loading media.
+      const scrollingElement = document.scrollingElement ?? document.documentElement
+      const target = Math.max(0, scrollingElement.scrollHeight - window.innerHeight)
+      const elapsed = Math.min(1, (now - startedAt) / duration)
+      const easedProgress = 1 - Math.pow(1 - elapsed, 3)
+      const nextPosition = startPosition + (target - startPosition) * easedProgress
+
+      window.scrollTo({ top: nextPosition, left: 0, behavior: 'auto' })
+
+      if (elapsed >= 1 || Math.abs(target - nextPosition) < 1) {
+        window.scrollTo({ top: target, left: 0, behavior: 'auto' })
+        stopAutoScroll()
+        return
+      }
+      autoScrollFrameRef.current = requestAnimationFrame(scroll)
+    }
+
+    autoScrollFrameRef.current = requestAnimationFrame(scroll)
+  }
 
   const openInvitation = async () => {
     if (hasOpened) return
     setHasOpened(true)
+    startAutoScroll()
     const audio = audioRef.current
     if (!audio) return
     audio.loop = false
@@ -72,6 +115,7 @@ export function InvitationScroll() {
       await audio.play()
     } catch {
       setHasOpened(false)
+      stopAutoScroll()
     }
   }
 
@@ -83,6 +127,18 @@ export function InvitationScroll() {
       document.body.style.overflow = previousOverflow
     }
   }, [hasOpened])
+
+  useEffect(() => {
+    const handleTouch = () => stopAutoScroll()
+    window.addEventListener('pointerdown', handleTouch, { passive: true })
+    window.addEventListener('touchstart', handleTouch, { passive: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', handleTouch)
+      window.removeEventListener('touchstart', handleTouch)
+      stopAutoScroll()
+    }
+  }, [])
 
   useEffect(() => {
     const update = () => {
