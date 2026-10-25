@@ -98,7 +98,7 @@ export function InvitationScroll() {
     startAutoScroll()
     const audio = audioRef.current
     if (!audio) return
-    audio.loop = false
+    audio.loop = true
     try {
       await audio.play()
     } catch {
