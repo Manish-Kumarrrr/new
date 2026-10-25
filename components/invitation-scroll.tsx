@@ -79,7 +79,7 @@ export function InvitationScroll() {
     const scroll = () => {
       if (!autoScrollActiveRef.current) return
       const target = document.documentElement.scrollHeight - window.innerHeight
-      const nextPosition = Math.min(target, window.scrollY + 8)
+      const nextPosition = Math.min(target, window.scrollY + 16)
       window.scrollTo(0, nextPosition)
 
       if (nextPosition >= target) {
