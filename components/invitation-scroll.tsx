@@ -55,6 +55,8 @@ function InvitationContent({ progress }: { progress: number }) {
   )
 }
 
+const AUTO_SCROLL_DURATION_MS = 10000
+
 export function InvitationScroll() {
   const sectionRef = useRef<HTMLElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -76,13 +78,19 @@ export function InvitationScroll() {
     stopAutoScroll()
     autoScrollActiveRef.current = true
 
-    const scroll = () => {
-      if (!autoScrollActiveRef.current) return
-      const target = document.documentElement.scrollHeight - window.innerHeight
-      const nextPosition = Math.min(target, window.scrollY + 50)
-      window.scrollTo(0, nextPosition)
+    const startY = window.scrollY
+    let startTime: number | null = null
 
-      if (nextPosition >= target) {
+    // Time-based linear progress so the scroll takes the same duration at a constant
+    // speed on every device, regardless of refresh rate or screen height.
+    const scroll = (now: number) => {
+      if (!autoScrollActiveRef.current) return
+      if (startTime === null) startTime = now
+      const t = Math.min(1, (now - startTime) / AUTO_SCROLL_DURATION_MS)
+      const target = document.documentElement.scrollHeight - window.innerHeight
+      window.scrollTo({ top: startY + (target - startY) * t, behavior: 'instant' })
+
+      if (t >= 1) {
         stopAutoScroll()
         return
       }
@@ -116,17 +124,7 @@ export function InvitationScroll() {
     }
   }, [hasOpened])
 
-  useEffect(() => {
-    const handleTouch = () => stopAutoScroll()
-    window.addEventListener('pointerdown', handleTouch, { passive: true })
-    window.addEventListener('touchstart', handleTouch, { passive: true })
-
-    return () => {
-      window.removeEventListener('pointerdown', handleTouch)
-      window.removeEventListener('touchstart', handleTouch)
-      stopAutoScroll()
-    }
-  }, [])
+  useEffect(() => () => stopAutoScroll(), [])
 
   useEffect(() => {
     const update = () => {
