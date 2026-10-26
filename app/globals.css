@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { margin: 0; background: var(--cream); color: var(--ink); font-family: Georgia, 'Times New Roman', serif; }
 button, a { font: inherit; }
 
@@ -46,7 +46,7 @@ button, a { font: inherit; }
 .hero-kicker { position: relative; margin: 2px 0 0; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted-ink); }
 
 .scroll-object { width: min(88vw, 360px); position: relative; margin-top: 132px; z-index: 3; filter: drop-shadow(0 18px 17px rgba(79,45,28,.18)); }
-.fabric { position: relative; width: calc(100% - 5px); margin: 0 auto; overflow: hidden; background: url('/assets/scroll-source.png') 100% 0 / 204% auto no-repeat;   transition: height .08s linear; }
+.fabric { position: relative; width: calc(100% - 5px); margin: 0 auto; overflow: hidden; background: url('/assets/scroll-source.png') 100% 0 / 204% auto no-repeat; will-change: height; }
 .fabric::after { content: ''; position: absolute; inset: 0; opacity: .16; pointer-events: none; background: radial-gradient(#9c7545 .5px, transparent .7px); background-size: 9px 9px; mix-blend-mode: multiply; }
 .fabric-border { display: none; }
 .rod { position: absolute; left: -13px; right: -13px; height: 39px; z-index: 5; display: block; transition: transform .08s linear; overflow: hidden; }

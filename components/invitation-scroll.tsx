@@ -78,17 +78,21 @@ export function InvitationScroll() {
     stopAutoScroll()
     autoScrollActiveRef.current = true
 
-    const startY = window.scrollY
+    const section = sectionRef.current
+    const range = section ? Math.max(1, section.offsetHeight - window.innerHeight) : 1
+    const startProgress = section ? Math.min(1, Math.max(0, -section.getBoundingClientRect().top / range)) : 0
+    const sectionTop = section ? section.getBoundingClientRect().top + window.scrollY : 0
     let startTime: number | null = null
 
-    // Time-based linear progress so the scroll takes the same duration at a constant
-    // speed on every device, regardless of refresh rate or screen height.
+    // Progress is driven by time (not by the integer-rounded scroll position) so the
+    // unfold renders at sub-pixel precision and constant speed on every device.
     const scroll = (now: number) => {
       if (!autoScrollActiveRef.current) return
       if (startTime === null) startTime = now
       const t = Math.min(1, (now - startTime) / AUTO_SCROLL_DURATION_MS)
-      const target = document.documentElement.scrollHeight - window.innerHeight
-      window.scrollTo({ top: startY + (target - startY) * t, behavior: 'instant' })
+      const nextProgress = startProgress + (1 - startProgress) * t
+      setProgress(nextProgress)
+      window.scrollTo({ top: sectionTop + range * nextProgress, behavior: 'instant' })
 
       if (t >= 1) {
         stopAutoScroll()
@@ -128,7 +132,7 @@ export function InvitationScroll() {
 
   useEffect(() => {
     const update = () => {
-      if (!sectionRef.current) return
+      if (!sectionRef.current || autoScrollActiveRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
       const range = Math.max(1, sectionRef.current.offsetHeight - window.innerHeight)
       setProgress(prefersReducedMotion ? 1 : Math.min(1, Math.max(0, -rect.top / range)))
